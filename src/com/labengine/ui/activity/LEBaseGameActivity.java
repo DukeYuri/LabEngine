@@ -51,4 +51,5 @@ public abstract class LEBaseGameActivity extends Activity{
 	public abstract void onLoadResource();
 	public abstract void onLoadScene();
 	public abstract void onPauseEngine();
+	public abstract void onResumeEngine();
 }

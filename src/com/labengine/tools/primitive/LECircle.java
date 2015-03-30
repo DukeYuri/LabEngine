@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import com.labengine.engine.LEBasic;
+import com.labengine.engine.LEEntity;
 
 /**
  * 
@@ -12,7 +13,7 @@ import com.labengine.engine.LEBasic;
  * 
  */
 
-public class LECircle extends LEBasic {
+public class LECircle extends LEEntity {
 	
 	////////////////////////////////////////////////////////////////
 	// FIELDS                                                     //

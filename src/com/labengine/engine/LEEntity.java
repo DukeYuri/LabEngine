@@ -1,9 +1,7 @@
-package com.labengine.tools.primitive;
+package com.labengine.engine;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-
-import com.labengine.engine.LEBasic;
 
 /**
  * 
@@ -12,38 +10,48 @@ import com.labengine.engine.LEBasic;
  * 
  */
 
-public class LEPoint extends LEBasic {
+public class LEEntity extends LEBasic {
 
 	// //////////////////////////////////////////////////////////////
-	// FIELDS
+	// FIELDS //
 	// //////////////////////////////////////////////////////////////
 
-	public float x, y;
+	private Paint p;
+	private int color;
+	public float x, y; 
 
-	public float axX = 1, axY = 1;
-
-	public float dx = 0, dy = 0;
+	private float axX = 1, axY = 1; 
+	
+	private float dx = 0, dy = 0;
+	
+	private int width = 0, height = 0;
 
 	// //////////////////////////////////////////////////////////////
-	// CONSTRUCTOR
+	// CONSTRUCTOR //
 	// //////////////////////////////////////////////////////////////
 
-	public LEPoint(int x, int y) {
-		this.x = x; //
-		this.y = y;
-		this.type = LEBasic.TYPE_POINT;
+	// //////////////////////////////////////////////////////////////
+	// GETTERS/SETTERS //
+	// //////////////////////////////////////////////////////////////
+
+	public int getColor() {
+		return color;
 	}
 
-	public LEPoint(float x, float y) {
-		this.x = x;
-		this.y = y;
-		this.type = LEBasic.TYPE_POINT;
+	public void setColor(int color) {
+		if (this.p == null) {
+			this.p = new Paint();
+		}
+		p.setColor(color);
 	}
 
-	// //////////////////////////////////////////////////////////////
-	// GETTERS/SETTERS
-	// //////////////////////////////////////////////////////////////
-
+	public void setARGB(int a, int r, int g, int b) {
+		if (this.p == null) {
+			this.p = new Paint();
+		}
+		p.setARGB(a, r, g, b);
+	}
+	
 	public float getX() {
 		return x;
 	}
@@ -91,30 +99,34 @@ public class LEPoint extends LEBasic {
 	public void setDy(float dy) {
 		this.dy = dy;
 	}
+	
+	public int getWidth() {
+        return width;
+    }
+ 
+    public int getHeight() {
+        return height;
+    }
 
 	// //////////////////////////////////////////////////////////////
-	// METHODS
+	// METHODS //
 	// //////////////////////////////////////////////////////////////
 
 	@Override
 	public void update() {
-		this.x = this.dx + this.x;
-		this.y = this.dy + this.y;
-		this.dx = this.dx * this.axX;
-		this.dy = this.dy * this.axY;
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	public boolean isSelected(float x, float y) {
-		if (this.x == x && this.y == y)
-			return true;
-		else
-			return false;
+	public boolean isSelected(float f, float g) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public void draw(Canvas c, Paint p) {
-		c.drawPoint(x, y, p);
+		// TODO Auto-generated method stub
 
 	}
 

@@ -39,7 +39,7 @@ public class LESurfaceView extends SurfaceView implements
 	public LESurfaceView(Context context, LEScene s) {
 		super(context);
 		scene = s;
-		// drawer = new mDrawerTask(this.getHolder(), this.scene);
+		// drawer = new LEDrawerTask(this.getHolder(), this.scene);
 		this.getHolder().addCallback(this);
 	}
 	
@@ -61,7 +61,7 @@ public class LESurfaceView extends SurfaceView implements
 	
 	@Override
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int w, int h) {
-		// t.schedule(drawer, 0, mSettings.frameInterval);
+		// t.schedule(drawer, 0, LESettings.frameInterval);
 		scene.setWH(w, h);
 		LESettings.setDisplaySize(w, h);
 

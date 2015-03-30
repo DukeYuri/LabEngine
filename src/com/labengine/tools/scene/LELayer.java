@@ -20,7 +20,7 @@ public class LELayer {
 	////////////////////////////////////////////////////////////////
 	
 	public LinkedList<LEBasic> data = new LinkedList<LEBasic>();
-	public LinkedList<LECamera> cData = new LinkedList<LECamera>();
+	public static LinkedList<LECamera> cData = new LinkedList<LECamera>();
 
 	int level;
 

@@ -3,6 +3,8 @@ package com.labengine.engine;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.labengine.engine.camera.LECamera;
+
 /**
  *
  * @author DukeYuri
@@ -50,6 +52,8 @@ public abstract class LEBasic {
 	 */
 	public static final int TYPE_TEXT = 7;
 	
+	public static LECamera camera;
+	
 	////////////////////////////////////////////////////////////////
 	// CONSTRUCTOR                                                //
 	////////////////////////////////////////////////////////////////
@@ -67,13 +71,13 @@ public abstract class LEBasic {
 	/**
 	 * Checks if a point in any of the primitives
 	 *
-	 * @param f
+	 * @param x
 	 *            - the x-coordinate
-	 * @param g
+	 * @param y
 	 *            - the y-coordinate
 	 * @return returns true if it does and false if it is not
 	 */
-	public abstract boolean isSelected(float f, float g);
+	public abstract boolean isSelected(float x, float y);
 
 	/**
 	 * Drawing method
@@ -84,4 +88,5 @@ public abstract class LEBasic {
 	 *            - the paint for drawing
 	 */
 	public abstract void draw(Canvas c, Paint p);
+	
 }
