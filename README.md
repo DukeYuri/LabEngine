@@ -72,8 +72,8 @@ public class Main_Activity extends LEBaseActivity {
 	}
 ...
 ```
-  * If you want you can add the handler touches in the method <b> onTouch() </b>
- ```java
+  * If you want you can add the handler touches in the method <b> onTouch()</b>:
+```java
 ...
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
