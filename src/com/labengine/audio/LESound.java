@@ -1,9 +1,9 @@
 package com.labengine.audio;
 
-import android.content.Context;
 import android.media.MediaPlayer;
 
 import com.labengine.engine.LESettings;
+import com.labengine.ui.activity.LEBaseGameActivity;
 
 /**
  * 
@@ -15,7 +15,7 @@ import com.labengine.engine.LESettings;
 public class LESound {
 
 	////////////////////////////////////////////////////////////////
-	// FIELDS 													  //
+	// FIELDS 													  
 	////////////////////////////////////////////////////////////////
 
 	private MediaPlayer track;
@@ -23,18 +23,18 @@ public class LESound {
 	private String name;
 	
 	////////////////////////////////////////////////////////////////
-	// CONSTRUCTOR                                                //
+	// CONSTRUCTOR                                                
 	////////////////////////////////////////////////////////////////
 
-	public LESound(Context cont, int resid, String name, boolean looped) {
+	public LESound(int resid, String name, boolean looped) {
 		this.playable = true;
-		this.track = MediaPlayer.create(cont, resid);
+		this.track = MediaPlayer.create(LEBaseGameActivity.context, resid);
 		this.track.setLooping(looped);
 		this.name = name;
 	}
 	
 	////////////////////////////////////////////////////////////////
-	// GETTERS/SETTERS                                            //
+	// GETTERS/SETTERS                                            
 	////////////////////////////////////////////////////////////////
 
 	public void setPlayable(boolean playable) {
@@ -46,7 +46,7 @@ public class LESound {
 	}
 	
 	////////////////////////////////////////////////////////////////
-	// METHODS                                                    //
+	// METHODS                                                    
 	////////////////////////////////////////////////////////////////
 	
 	public void start() {

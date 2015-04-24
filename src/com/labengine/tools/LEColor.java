@@ -1,10 +1,6 @@
-package com.labengine.engine.handler;
+package com.labengine.tools;
 
-import java.util.TimerTask;
-
-import com.labengine.engine.LESettings;
-
-public class LETimerCounter extends TimerTask {
+public class LEColor {
 
 	// //////////////////////////////////////////////////////////////
 	// FIELDS
@@ -21,10 +17,5 @@ public class LETimerCounter extends TimerTask {
 	// //////////////////////////////////////////////////////////////
 	// METHODS
 	// //////////////////////////////////////////////////////////////
-
-	@Override
-	public void run() {
-		LESettings.timeCounter++;
-	}
 
 }

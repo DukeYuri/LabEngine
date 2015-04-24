@@ -1,12 +1,12 @@
 package com.labengine.engine.camera;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.util.DisplayMetrics;
-import android.view.Display;
+import android.graphics.Paint;
 
-import com.labengine.engine.LEEntity;
-import com.labengine.tools.scene.LELayer;
-import com.labengine.tools.sprite.LESimpleSprite;
+import com.labengine.base.LEBase;
+import com.labengine.engine.LEBasic;
 
 /**
  * 
@@ -15,7 +15,7 @@ import com.labengine.tools.sprite.LESimpleSprite;
  * 
  */
 
-public class LECamera {
+public class LECamera extends LEBasic {
 
 	// //////////////////////////////////////////////////////////////
 	// FIELDS
@@ -25,117 +25,140 @@ public class LECamera {
 	public static final int STYLE_HORIZONTAL = 1;
 	public static final int STYLE_VERTICAL = 2;
 
-	private Matrix matrix;
-	
-	private float viewPortCenterX, viewPortCenterY;
-	
-	private float viewPortScaleX, viewPortScaleY;
-	
-	private float pivotPointX, pivotPointY;
-	
-	private int textureX, textureY;
-	
-	private int textureScaleX, textureScaleY;
-	
-	private float cameraRotation = 0;
-	
-	private float textureRotation = 0;
-	
-	private float totalRotation = 0;
-	
-	private int cameraX, cameraY;
-	
-	private float totalScaleX, totalScaleY;
-	
-	private float newTextureX, newTextureY;
-	
-	private float dx, dy;
-	
-	private float sinRot, cosRot;
-	
-	private int cameraZoom;
-	
-	public static int zoomStyle;
+	public Paint p = new Paint();
+
+	private Bitmap bmp;
+
+	private int w, h;
+
+	private float sx, sy;
+
+	private float pPX, pPY;
+
+	private float scaleX, scaleY;
+
+	private float rotation = 0, sin, cos;
+
+	private float zoom = 0;
+
+	Bitmap.Config conf = Bitmap.Config.ARGB_8888;
+
+	public Canvas c;
+
+	private Matrix matrix = new Matrix();
 
 	// //////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
 	// //////////////////////////////////////////////////////////////
 
-	public LECamera(float x, float y, float width, float height, LESimpleSprite o, Display d) {
-		matrix = new Matrix();
-		DisplayMetrics metricsB = new DisplayMetrics();
-		d.getMetrics(metricsB);
-		this.pivotPointX = o.getX();
-		this.pivotPointY = o.getY();
-		viewPortCenterX = x + width/2;
-		viewPortCenterY = y + height/2;
-		viewPortScaleX = width / metricsB.widthPixels;
-		viewPortScaleY =  height / metricsB.heightPixels;
-		update();
+	public LECamera(float sx, float sy, final int width, final int height) {
+		this.w = width;
+		this.h = height;
+		this.sx = sx;
+		this.sy = sy;
+		bmp = Bitmap.createBitmap(w, h, conf);
+		c = new Canvas(bmp);
+		refreshAll();
 	}
 
 	// //////////////////////////////////////////////////////////////
 	// GETTERS/SETTERS
 	// //////////////////////////////////////////////////////////////
 
-	public void setBounds(int lowerX, int lowerY, int upperX, int upperY) {
-
-	}
-
-	public void setCameraRotation(float rot) {
-		this.cameraRotation = rot;
-	}
-
 	public Matrix getMatrix() {
 		return matrix;
 	}
 
-	public void setMatrixParam() {
+	public void setCameraRotation(float rotation) {
+		this.rotation = rotation;
+	}
 
+	public float getCameraRotation() {
+		return rotation;
+	}
+
+	public void setPivotPointX(float pPX) {
+		this.pPX = pPX;
+	}
+
+	public float getPivotPointX() {
+		return pPX;
+	}
+
+	public void setPivotPointY(float pPY) {
+		this.pPY = pPY;
+	}
+
+	public float getPivotPointY() {
+		return pPY;
+	}
+
+	public void setCameraPositionX(float sx) {
+		this.sx = sx;
+	}
+
+	public float getCameraPositionX() {
+		return sx;
+	}
+
+	public void setCameraPositionY(float sy) {
+		this.sy = sy;
+	}
+
+	public float getCameraPositionY() {
+		return sy;
+	}
+
+	public void setCameraPositionXY(float sx, float sy) {
+		this.sx = sx;
+		this.sy = sy;
+	}
+
+	public void setCameraZoom(float zoom) {
+		this.zoom = zoom;
+	}
+
+	public float getCameraZoom() {
+		return zoom;
+	}
+
+	public void setCameraScaleX(float scaleX) {
+		this.scaleX = scaleX;
+	}
+
+	public void setCameraScaleY(float scaleY) {
+		this.scaleY = scaleY;
+	}
+
+	public float getCameraScaleX() {
+		return scaleX;
+	}
+
+	public float getCameraScaleY() {
+		return scaleY;
 	}
 
 	// //////////////////////////////////////////////////////////////
 	// METHODS
 	// //////////////////////////////////////////////////////////////
 
-	public void update() {
-		sinRot = (float) Math.sin(-cameraRotation);
-		cosRot = (float) Math.cos(-cameraRotation);
-		dx = textureX - cameraX;
-		dy = textureY - cameraY;
+	public void refreshAll() {
+		sin = (float) Math.sin(-rotation);
+		cos = (float) Math.cos(-rotation);
+		sx = (cos - sin);
 
-		newTextureX = (dx * cosRot - sinRot * dy) * cameraZoom * viewPortScaleX
-				+ viewPortCenterX;
-		newTextureY = (dx * sinRot + cosRot * dy) * cameraZoom * viewPortScaleY
-				+ viewPortCenterY;
-
-		totalRotation = textureRotation - cameraRotation;
-		totalScaleX = textureScaleX * cameraZoom * viewPortScaleX;
-		totalScaleY = textureScaleY * cameraZoom * viewPortScaleY;
-
-		pivotPointX *= totalScaleX;
-		pivotPointY *= totalScaleY;
-
-		matrix.setScale(totalScaleX, totalScaleY);
-		matrix.setTranslate(pivotPointX, pivotPointY);
-		matrix.setRotate(totalRotation);
-		matrix.setTranslate(newTextureX, newTextureY);
 	}
 
-	public void follow(LEEntity o) {
-		this.pivotPointX = o.getX();
-		this.pivotPointY = o.getY();
-		update();
+	public void follow(LEBase o) {
+
 	}
 
-	public void follow(LEEntity o, int STYLE) {
+	public void follow(LEBase o, int STYLE) {
 
 	}
 
 	public void focusOn(int x, int y) {
-		this.cameraX = x;
-		this.cameraY = y;
-		update();
+
 	}
 
 	public class scroll {
@@ -143,7 +166,26 @@ public class LECamera {
 	}
 
 	public void destroy() {
-		LELayer.cData.remove();
+
+	}
+
+	@Override
+	public void update() {
+		refreshAll();
+		matrix.setScale(sx, sy);
+		matrix.setRotate(rotation);
+		matrix.setTranslate(pPX, pPY);		
+	}
+
+	@Override
+	public boolean isSelected(float x, float y) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void draw(Canvas c, Paint p) {
+		c.drawBitmap(bmp, matrix, p);
 	}
 
 }

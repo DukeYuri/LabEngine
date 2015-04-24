@@ -1,0 +1,56 @@
+package com.labengine.physics;
+
+import com.labengine.base.primitive.LEPoint;
+import com.labengine.base.primitive.LERect;
+
+public class LERectBody extends LERect {
+
+	// //////////////////////////////////////////////////////////////
+	// FIELDS
+	// //////////////////////////////////////////////////////////////
+
+	LEPoint p1, p2;
+	
+	float collide;
+	
+	LERect rect;
+	
+	// //////////////////////////////////////////////////////////////
+	// CONSTRUCTOR
+	// //////////////////////////////////////////////////////////////
+	
+	public LERectBody(LEPoint p1, LEPoint p2) {
+		super(p1, p2);
+		this.p1 = p1;
+		this.p2 = p2;
+	}
+
+	// //////////////////////////////////////////////////////////////
+	// GETTERS/SETTERS
+	// //////////////////////////////////////////////////////////////
+	
+	public float getCenterX() {
+		return p2.x - (p2.getX() - p1.getX()) / 2;
+	}
+	
+	public float getCenterY() {
+		return p2.y - (p2.getY() - p1.getY()) / 2;
+	}
+	
+	public float getHalfExtentsW() {
+		return (p2.getX() - p1.getX()) / 2;
+	}
+	
+	public float getHalfExtentsH() {
+		return (p2.getY() - p1.getY()) / 2;
+	}
+
+	// //////////////////////////////////////////////////////////////
+	// METHODS
+	// //////////////////////////////////////////////////////////////
+	
+	public void refresh() {
+		
+	}
+
+}

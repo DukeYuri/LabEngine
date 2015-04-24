@@ -1,18 +1,24 @@
-package com.labengine.engine.handler;
+package com.labengine.engine.camera.HUD;
 
-import java.util.TimerTask;
+import com.labengine.base.scene.LEScene;
+import com.labengine.engine.LEBasic;
 
-import com.labengine.engine.LESettings;
-
-public class LETimerCounter extends TimerTask {
+public class HUD {
 
 	// //////////////////////////////////////////////////////////////
 	// FIELDS
 	// //////////////////////////////////////////////////////////////
+	
+	private LEScene s;
 
 	// //////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
 	// //////////////////////////////////////////////////////////////
+	
+	public HUD(LEScene s) {
+		this.s = s;
+		this.s.setCurLay(s.getLayCount() - 1);
+	}
 
 	// //////////////////////////////////////////////////////////////
 	// GETTERS/SETTERS
@@ -21,10 +27,9 @@ public class LETimerCounter extends TimerTask {
 	// //////////////////////////////////////////////////////////////
 	// METHODS
 	// //////////////////////////////////////////////////////////////
-
-	@Override
-	public void run() {
-		LESettings.timeCounter++;
+	
+	public void addItemToHUD(LEBasic item) {
+		s.addItem(item);
 	}
 
 }

@@ -2,8 +2,6 @@ package com.labengine.audio;
 
 import java.util.ArrayList;
 
-import android.content.Context;
-
 /**
  * 
  * @author DukeYuri
@@ -42,9 +40,9 @@ public class LESoundPlayer {
 	// METHODS                                                    //
 	////////////////////////////////////////////////////////////////
 	
-	public static void addTrack(Context c, int resid, String name,
+	public static void addTrack(int resid, String name,
 			boolean looped) {
-		LESound track = new LESound(c, resid, name, looped);
+		LESound track = new LESound(resid, name, looped);
 		tracks.add(track);
 	}
 

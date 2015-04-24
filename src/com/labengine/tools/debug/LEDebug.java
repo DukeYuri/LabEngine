@@ -1,14 +1,17 @@
-package com.labengine.engine.handler;
+package com.labengine.tools.debug;
 
-import java.util.TimerTask;
+import android.content.Context;
+import android.widget.Toast;
 
-import com.labengine.engine.LESettings;
+import com.labengine.ui.activity.LEBaseGameActivity;
 
-public class LETimerCounter extends TimerTask {
+public class LEDebug {
 
 	// //////////////////////////////////////////////////////////////
 	// FIELDS
 	// //////////////////////////////////////////////////////////////
+	
+	public static boolean debugMode = false;
 
 	// //////////////////////////////////////////////////////////////
 	// CONSTRUCTOR
@@ -17,14 +20,24 @@ public class LETimerCounter extends TimerTask {
 	// //////////////////////////////////////////////////////////////
 	// GETTERS/SETTERS
 	// //////////////////////////////////////////////////////////////
+	
+	public static void setDebugMode(boolean debugMode) {
+		LEDebug.debugMode = debugMode;
+	}
 
 	// //////////////////////////////////////////////////////////////
 	// METHODS
 	// //////////////////////////////////////////////////////////////
 
-	@Override
-	public void run() {
-		LESettings.timeCounter++;
+	public static void makeDebugToast(String txt) {
+		Toast toast = Toast.makeText(LEBaseGameActivity.context, txt, Toast.LENGTH_SHORT);
+		toast.show();
+	}
+	
+	public static void makeDebugToast(String txt, Context c) {
+		Toast toast = Toast.makeText(c, txt, Toast.LENGTH_SHORT);
+		toast.show();
 	}
 
+	
 }
