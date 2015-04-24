@@ -9,12 +9,18 @@ P.S. Please forgive for my English. I'm not a native English speaker.</b>
 ### How to
 
 * Create a new project in your IDE
-* First of all add a package <b>com.labengine</b> to your project's <i>src/</i> folder
+* First of all, add a .jar file to <i>libs/<i> folder in your project
 * Extends your Main_Activity.java with the <b>LEBaseActivity.java</b> and add unimplements methods. Like that:
 ```java
 public class Main_Activity extends LEBaseActivity {
-  @Override
-	public void onLoadEngine() { }
+
+	public static final int FRAMERATE = 30;
+	
+	public LESimpleSprite sprite;
+	public LEScene scene;
+
+  	@Override
+  	public void onLoadEngine() { }
 
 	@Override
 	public void onLoadResource() { }
@@ -24,40 +30,59 @@ public class Main_Activity extends LEBaseActivity {
 
 	@Override
 	public void onPauseEngine() { }
+	
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
 ```
 * Secondary you must to initialize engine:
-  * In method <b>onLoadEngine()</b> you must create settings, initialize your scene and Surface for Drawing. In most cases, it looks like that: 
+  * In method <b>onLoadEngine()</b> you must create settings. In most cases, it looks like that: 
 ```java
 ...
-@Override
+	@Override
 	public void onLoadEngine() {
-   LESettings.AutoScale = true;
-        LESettings.setDefaultRes(480, 800);
-		LESettings.Init(this, this.getWindowManager().getDefaultDisplay(), FRAMERATE);
+   		LESettings.AutoScale = true;
+		LESettings.setDefaultWH(480, 800);
+		LESettings.Init(30);
 		LESettings.setSound(true);
-		LEScene scene = new LEScene(this.getWindowManager().getDefaultDisplay(), NUMBER_OF_LAYERS);
-		LESurfaceView sf = new LESurfaceView(this, scene);
-		this.setContentView(v);
+		LESettings.setFullScreen(true);
 	}
 ...
 ```
-  * Then you can intialize your game's resource (textures, sounds etc.) in the method <b>onLoadResource()</b>: 
+  * Then you can intialize your game's resource (scene, textures, sounds etc.) in the method <b>onLoadResource()</b>: 
 ```java
 ...
-@Override
-	public void onLoadResource() {
-	  LESimpleSprite sprite = new LESimpleSprite("path_to_your_image_from_assets/", this.getAssets()); 
+	@Override
+	public LEScene onLoadResource() {
+		scene = new LEScene(0, 0, 1);
+		sprite = new LESimpleSprite("sum-logo.png");
+		return scene;
 	}
 ...
 ```
   * And finaly, you can add an object to the scene:
 ```java
 ...
-@Override
+	@Override
 	public void onLoadResource() {
 	  scene.addItem(sprite);
 	}
 ...
 ```
- 
+  * If you want you can add the handler touches in the method <b> onTouch() </b>
+ ```java
+...
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_MOVE) {
+		    	if (player.isSelected(event.getX(), event.getY())) {
+				sprite.setCenterXY(event.getX(), event.getY());
+			 }
+		}
+		return true;
+	}
+...
+```
