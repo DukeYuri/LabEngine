@@ -9,7 +9,7 @@ P.S. Please forgive for my English. I'm not a native English speaker.</b>
 ### How to
 
 * Create a new project in your IDE
-* First of all, add a .jar file to <i>libs/<i> folder in your project
+* First of all, add a .jar file to <i>libs/</i> folder in your project
 * Extends your Main_Activity.java with the <b>LEBaseActivity.java</b> and add unimplements methods. Like that:
 ```java
 public class Main_Activity extends LEBaseActivity {
