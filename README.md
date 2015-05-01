@@ -27,9 +27,6 @@ public class Main_Activity extends LEBaseActivity {
 
 	@Override
 	public void onLoadScene() { }
-
-	@Override
-	public void onPauseEngine() { }
 	
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
